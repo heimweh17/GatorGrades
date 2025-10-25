@@ -1,0 +1,7 @@
+course_code,term,assignment_title,assignment_due,student_external_id,student_name,score,max_score,graded_at
+COP3530,Fall 2025,HW1,2025-09-10,12345678,Alex Liu,92,100,2025-09-11
+COP3530,Fall 2025,HW1,2025-09-10,87654321,Albert Aligator,81,100,2025-09-11
+COP3530,Fall 2025,Quiz1,2025-09-17,12345678,Alberta Aligator,45,50,2025-09-18
+COP3530,Fall 2025,Quiz1,2025-09-17,87654321,Shanghai Ren,39,50,2025-09-18
+COP3530,Fall 2025,HW2,2025-09-24,12345678,Peace L,88,100,2025-09-25
+COP3530,Fall 2025,HW2,2025-09-24,87654321,University Park,74,100,2025-09-25
