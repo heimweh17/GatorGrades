@@ -30,7 +30,7 @@ Built with Flask, React (Vite), SQLite / PostgreSQL, and Docker Compose.
 ## Project Structure
 
 ```
-gatorgrades-with-trends/
+Grade-Track/
 ├── backend/
 │   ├── app.py
 │   ├── models.py
