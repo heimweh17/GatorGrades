@@ -1,7 +1,36 @@
-course_code,term,assignment_title,assignment_due,student_external_id,student_name,score,max_score,graded_at
-COP3530,Fall 2025,HW1,2025-09-10,12345678,Alex Liu,92,100,2025-09-11
-COP3530,Fall 2025,HW1,2025-09-10,87654321,Albert Aligator,81,100,2025-09-11
-COP3530,Fall 2025,Quiz1,2025-09-17,12345678,Alberta Aligator,45,50,2025-09-18
-COP3530,Fall 2025,Quiz1,2025-09-17,87654321,Shanghai Ren,39,50,2025-09-18
-COP3530,Fall 2025,HW2,2025-09-24,12345678,Peace L,88,100,2025-09-25
-COP3530,Fall 2025,HW2,2025-09-24,87654321,University Park,74,100,2025-09-25
+course_code,course_title,term,assignment_title,max_score,student_external_id,student_name,score
+COP3530,Data Structures & Algorithms,Fall 2025,HW1 - Linked Lists,100,1001,Emma Chen,95
+COP3530,Data Structures & Algorithms,Fall 2025,HW1 - Linked Lists,100,1002,Lucas Rivera,72
+COP3530,Data Structures & Algorithms,Fall 2025,HW1 - Linked Lists,100,1003,Ava Patel,88
+COP3530,Data Structures & Algorithms,Fall 2025,HW1 - Linked Lists,100,1004,Noah Smith,64
+COP3530,Data Structures & Algorithms,Fall 2025,HW1 - Linked Lists,100,1005,Ethan Zhao,91
+
+COP3530,Data Structures & Algorithms,Fall 2025,Quiz 1 - Recursion,50,1001,Emma Chen,45
+COP3530,Data Structures & Algorithms,Fall 2025,Quiz 1 - Recursion,50,1002,Lucas Rivera,22
+COP3530,Data Structures & Algorithms,Fall 2025,Quiz 1 - Recursion,50,1003,Ava Patel,39
+COP3530,Data Structures & Algorithms,Fall 2025,Quiz 1 - Recursion,50,1004,Noah Smith,27
+COP3530,Data Structures & Algorithms,Fall 2025,Quiz 1 - Recursion,50,1005,Ethan Zhao,50
+
+COP3530,Data Structures & Algorithms,Fall 2025,Project 1 - AVL Tree,150,1001,Emma Chen,142
+COP3530,Data Structures & Algorithms,Fall 2025,Project 1 - AVL Tree,150,1002,Lucas Rivera,130
+COP3530,Data Structures & Algorithms,Fall 2025,Project 1 - AVL Tree,150,1003,Ava Patel,98
+COP3530,Data Structures & Algorithms,Fall 2025,Project 1 - AVL Tree,150,1004,Noah Smith,111
+COP3530,Data Structures & Algorithms,Fall 2025,Project 1 - AVL Tree,150,1005,Ethan Zhao,149
+
+COP3530,Data Structures & Algorithms,Fall 2025,Midterm Exam,200,1001,Emma Chen,174
+COP3530,Data Structures & Algorithms,Fall 2025,Midterm Exam,200,1002,Lucas Rivera,153
+COP3530,Data Structures & Algorithms,Fall 2025,Midterm Exam,200,1003,Ava Patel,128
+COP3530,Data Structures & Algorithms,Fall 2025,Midterm Exam,200,1004,Noah Smith,102
+COP3530,Data Structures & Algorithms,Fall 2025,Midterm Exam,200,1005,Ethan Zhao,190
+
+COP3530,Data Structures & Algorithms,Fall 2025,HW2 - Graphs,100,1001,Emma Chen,96
+COP3530,Data Structures & Algorithms,Fall 2025,HW2 - Graphs,100,1002,Lucas Rivera,81
+COP3530,Data Structures & Algorithms,Fall 2025,HW2 - Graphs,100,1003,Ava Patel,69
+COP3530,Data Structures & Algorithms,Fall 2025,HW2 - Graphs,100,1004,Noah Smith,52
+COP3530,Data Structures & Algorithms,Fall 2025,HW2 - Graphs,100,1005,Ethan Zhao,98
+
+COP3530,Data Structures & Algorithms,Fall 2025,Final Exam,250,1001,Emma Chen,237
+COP3530,Data Structures & Algorithms,Fall 2025,Final Exam,250,1002,Lucas Rivera,188
+COP3530,Data Structures & Algorithms,Fall 2025,Final Exam,250,1003,Ava Patel,167
+COP3530,Data Structures & Algorithms,Fall 2025,Final Exam,250,1004,Noah Smith,132
+COP3530,Data Structures & Algorithms,Fall 2025,Final Exam,250,1005,Ethan Zhao,244
