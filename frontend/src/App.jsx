@@ -3,6 +3,8 @@ import axios from 'axios'
 import DistributionChart from './components/DistributionChart'
 import TrendsChart from './components/TrendsChart'
 
+const API = import.meta.env.VITE_API_BASE || 'http://localhost:8000/api'
+
 export default function App() {
   const [courses, setCourses] = useState([])
   const [selected, setSelected] = useState(null)
@@ -12,25 +14,44 @@ export default function App() {
   const [file, setFile] = useState(null)
 
   useEffect(() => {
-    axios.get('/api/courses').then(res => setCourses(res.data.courses))
+    axios.get(`${API}/courses`)
+      .then(res => setCourses(res.data.courses))
+      .catch(err => console.error('Failed to load courses:', err))
   }, [])
 
   useEffect(() => {
     if (!selected) return
-    axios.get(`/api/courses/${selected}/summary`).then(res => setSummary(res.data))
-    axios.get(`/api/courses/${selected}/distribution`).then(res => setBuckets(res.data.buckets))
-    axios.get(`/api/courses/${selected}/trends`).then(res => setTrends(res.data.trends))
+    const load = async () => {
+      try {
+        const [s, d, t] = await Promise.all([
+          axios.get(`${API}/courses/${selected}/summary`),
+          axios.get(`${API}/courses/${selected}/distribution`),
+          axios.get(`${API}/courses/${selected}/trends`)
+        ])
+        setSummary(s.data)
+        setBuckets(d.data.buckets)
+        setTrends(t.data.trends)
+      } catch (err) {
+        console.error('Error loading course data:', err)
+      }
+    }
+    load()
   }, [selected])
 
   const handleUpload = async (e) => {
     e.preventDefault()
     if (!file) return
-    const form = new FormData()
-    form.append('file', file)
-    await axios.post('/api/upload', form)
-    // refresh
-    const { data } = await axios.get('/api/courses')
-    setCourses(data.courses)
+    try {
+      const form = new FormData()
+      form.append('file', file)
+      await axios.post(`${API}/upload`, form)
+
+      const { data } = await axios.get(`${API}/courses`)
+      setCourses(data.courses)
+      if (!selected && data.courses?.length) setSelected(data.courses[0].id)
+    } catch (err) {
+      console.error('Upload failed:', err)
+    }
   }
 
   return (
@@ -43,13 +64,23 @@ export default function App() {
       </form>
 
       <label style={{ display: 'block', marginTop: 12 }}>Select Course:</label>
-      <select value={selected || ''} onChange={e => setSelected(Number(e.target.value) || null)}>
+      <select
+        value={selected || ''}
+        onChange={e => setSelected(Number(e.target.value) || null)}
+      >
         <option value="">-- choose --</option>
-        {courses.map(c => <option key={c.id} value={c.id}>{c.code} - {c.term}</option>)}
+        {courses.map(c => (
+          <option key={c.id} value={c.id}>{c.code} - {c.term}</option>
+        ))}
       </select>
 
       {summary && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginTop: '1rem' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '1rem',
+          marginTop: '1rem'
+        }}>
           <Card title="Students" value={summary.students} />
           <Card title="Assignments" value={summary.assignments} />
           <Card title="Average %" value={summary.avg_pct.toFixed(1)} />
@@ -59,29 +90,33 @@ export default function App() {
         </div>
       )}
 
-      <div style={{ marginTop: '2rem' }}>
-        <h2>Distribution</h2>
-        <DistributionChart data={buckets} />
-      </div>
-    
-      <div style={{ marginTop: '2rem' }}>
-        <h2>Trends</h2>
-        <TrendsChart data={trends} />
-      </div>
+      {buckets.length > 0 && (
+        <div style={{ marginTop: '2rem' }}>
+          <h2>Distribution</h2>
+          <DistributionChart data={buckets} />
+        </div>
+      )}
+
+      {trends.length > 0 && (
+        <div style={{ marginTop: '2rem' }}>
+          <h2>Trends</h2>
+          <TrendsChart data={trends} />
+        </div>
+      )}
     </div>
   )
 }
 
 function Card({ title, value }) {
   return (
-    <div style={{ border: '1px solid #ddd', borderRadius: 8, padding: 12 }}>
+    <div style={{
+      border: '1px solid #ddd',
+      borderRadius: 8,
+      padding: 12,
+      textAlign: 'center'
+    }}>
       <div style={{ fontSize: 12, color: '#666' }}>{title}</div>
       <div style={{ fontSize: 24, fontWeight: 600 }}>{value}</div>
-    
-      <div style={{ marginTop: '2rem' }}>
-        <h2>Trends</h2>
-        <TrendsChart data={trends} />
-      </div>
     </div>
   )
 }
