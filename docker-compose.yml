@@ -1,40 +1,49 @@
-version: "3.9"
 services:
   db:
     image: postgres:16
     container_name: gatorgrades-db
     environment:
-      POSTGRES_DB: gatorgrades
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: gatorgrades
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d gatorgrades"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+    ports:
+      - "5432:5432"  # optional, for local psql
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: gatorgrades-backend
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/gatorgrades
+      # SQLAlchemy DSN for Postgres-in-Docker
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/gatorgrades
+      # optional: enable Flask debug
+      FLASK_ENV: development
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app
+    restart: on-failure
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: gatorgrades-frontend
-    command: ["npm", "run", "dev"]
-    ports:
-      - "5173:5173"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+    command: ["npm","run","dev","--","--host","0.0.0.0","--port","5173"]
     depends_on:
       - backend
+    ports:
+      - "5173:5173"
+    restart: unless-stopped
 
 volumes:
   pgdata:
