@@ -1,4 +1,4 @@
-# GatorGrades
+# Grade Track
 
 A web app that visualizes student grade trends, distributions, and performance metrics across assignments and exams.  
 Built with Flask, React (Vite), SQLite / PostgreSQL, and Docker Compose.
